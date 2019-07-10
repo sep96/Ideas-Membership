@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@using Memberships.Extensions
+@using Memberships.Models
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserFirstName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li>
+                <a class="btn btn-danger" data-logout-button
+                   href="javascript:document.getElementById('logoutForm').submit()">
+                    Log off
+                </a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.GlyphLink("Account", "Login", "Log in", "user", "", "loginLink")
+            <div class="hidden-xs" data-login-panel-partial>
+                @Html.Partial("_LoginPanelPartial", new LoginViewModel
+           {
+               Email = "",
+               Password = "",
+               RememberMe = false
+           })
+            </div>
+        </li>
+
+        <li>
+            @Html.GlyphLink("", "", "Pwd", "lock", "", "pwdLink", new Dictionary<string, string>
+            { {"data-toggle", "modal" }, { "data-target", "#pwdModal" } })
+        </li>
+    </ul>
+}

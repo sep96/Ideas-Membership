@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Memberships.Models.UserViewModel>
+
+@foreach (var it in Model)
+{
+
+    <li><a href="/Account/Subscriptions?userId=@it.Id">    &nbsp;&nbsp;Users & Subscriptions</a></li>
+}
+

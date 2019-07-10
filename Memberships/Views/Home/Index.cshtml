@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ThumbnailAreaModel>
+@using Memberships.Models
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">  
+    @if (User.Identity.IsAuthenticated)
+    {
+        foreach (var area in Model)
+        {
+            
+            @Html.Partial("_ThumbnailAreaPartial", area)
+        }
+    }
+    else
+    {
+        // Displayed if the user isn't logged in
+        <!--left column-->
+       
+        <div class="col-lg-9 col-md-8 col-sm-7">    
+        <h2>I'm not logged in</h2>
+        </div>
+        <!--right column-->
+        <div class="col-lg-3 col-md-4 col-sm-5">
+            @Html.Partial("_RegisterUserPartial", new RegisterUserModel { Email = "", Name = "", Password = "" })
+            @Html.Partial("_ForgotPasswordPanelPartial", new ForgotPasswordViewModel { Email = "" })
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-sm-3 regiger-code-area">
+        @Html.Partial("_RegisterCodePartial")
+    </div>
+    <div class="col-sm-9">
+
+    </div>
+</div>
